@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
+import ContactModal from './ContactModal';
 
 const faqs = [
   {
@@ -33,6 +34,7 @@ const faqs = [
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -114,11 +116,20 @@ export default function FAQ() {
           className="text-center mt-12"
         >
           <p className="text-gray-600 mb-4">Still have questions?</p>
-          <button className="px-8 py-4 bg-gray-900 text-white font-bold hover:bg-gray-800 transition-colors duration-200">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="px-8 py-4 bg-gray-900 text-white font-bold hover:bg-gray-800 transition-colors duration-200"
+          >
             Contact Us
           </button>
         </motion.div>
       </div>
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Contact Us"
+      />
     </section>
   );
 }
